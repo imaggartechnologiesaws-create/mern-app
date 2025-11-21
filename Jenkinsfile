@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "Imaggar/mern-app:latest"
+        DOCKER_IMAGE = "awswork2025/mern-app:latest"
+
     }
 
     stages {
