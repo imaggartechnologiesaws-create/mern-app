@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "awswork2025/mern-app:latest"
-
+        KUBECONFIG = "C:\\Users\\LE0 JOHNS\\.kube\\config"
     }
 
     stages {
@@ -23,7 +23,6 @@ pipeline {
 
         stage('Login to Docker Hub') {
             steps {
-                // Uses Jenkins credentials to login securely
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds', 
                     usernameVariable: 'DOCKER_USER', 
@@ -42,8 +41,9 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                bat "kubectl apply -f k8s\\deployment.yaml"
-                bat "kubectl apply -f k8s\\service.yaml"
+                // Use the kubeconfig environment variable
+                bat 'kubectl apply -f k8s\\deployment.yaml'
+                bat 'kubectl apply -f k8s\\service.yaml'
             }
         }
     }
